@@ -1,0 +1,8 @@
+/home/jenny/projects/ipset/build/CMakeFiles/ipset_wrapper.dir
+/home/jenny/projects/ipset/build/CMakeFiles/waf_tarpit_demo.dir
+/home/jenny/projects/ipset/build/CMakeFiles/test.dir
+/home/jenny/projects/ipset/build/CMakeFiles/edit_cache.dir
+/home/jenny/projects/ipset/build/CMakeFiles/rebuild_cache.dir
+/home/jenny/projects/ipset/build/tests/CMakeFiles/test.dir
+/home/jenny/projects/ipset/build/tests/CMakeFiles/edit_cache.dir
+/home/jenny/projects/ipset/build/tests/CMakeFiles/rebuild_cache.dir

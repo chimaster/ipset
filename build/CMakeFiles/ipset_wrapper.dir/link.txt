@@ -1,0 +1,2 @@
+/usr/bin/ar qc libipset_wrapper.a CMakeFiles/ipset_wrapper.dir/src/ipset_wrapper.cpp.o
+/usr/bin/ranlib libipset_wrapper.a

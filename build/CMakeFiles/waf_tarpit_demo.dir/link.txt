@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/waf_tarpit_demo.dir/examples/waf_tarpit_demo.cpp.o -o waf_tarpit_demo  libipset_wrapper.a /usr/lib/x86_64-linux-gnu/libipset.so 
