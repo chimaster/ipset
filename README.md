@@ -152,7 +152,7 @@ sudo ctest --test-dir build --output-on-failure
 ## Origins
 
 This library grew out of an 8-year-old ipset smoke test, kept at
-[`legacy/original_ipset_test.cpp`](legacy/ipset_test.cpp) for
+[`legacy/ipset_test.cpp`](legacy/ipset_test.cpp) for
 reference. It no longer compiles as-is against current `libipset`
 (`ipset_session_init()`'s signature changed, and `libipset/ui.h` was
 removed — see the portability note above), and it silently mapped every
