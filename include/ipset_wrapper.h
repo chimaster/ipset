@@ -16,14 +16,14 @@
 
 #pragma once
 
+#include <cstdint>
 #include <mutex>
 #include <string>
-#include <cstdint>
 
 extern "C" {
-#include <libipset/session.h>
 #include <libipset/data.h>
 #include <libipset/parse.h>
+#include <libipset/session.h>
 #include <libipset/types.h>
 }
 
@@ -34,10 +34,10 @@ namespace ipsettarpit {
 // original 8-year-old version of this code collapsed into a single
 // "ret = 0" success path -- silently hiding real errors from callers.
 enum class IpsetResult {
-    Ok,             // operation succeeded
-    AlreadyPresent, // ADD: element was already a member (not an error)
-    NotPresent,     // DEL/TEST: element was not a member
-    Error,          // a genuine failure; call last_error() for detail
+    Ok,              // operation succeeded
+    AlreadyPresent,  // ADD: element was already a member (not an error)
+    NotPresent,      // DEL/TEST: element was not a member
+    Error,           // a genuine failure; call last_error() for detail
 };
 
 // One ipset session wrapper, safe to share across threads: every public
@@ -47,7 +47,7 @@ enum class IpsetResult {
 // instance over constructing one per call -- ipset_session_init/fini
 // is not free.
 class IpsetSet {
-public:
+   public:
     IpsetSet();
     ~IpsetSet();
 
@@ -60,16 +60,14 @@ public:
     // as long as the set was created with `-exist timeout` support,
     // which this always requests). Safe to call repeatedly -- an
     // already-existing set of the same type is treated as success.
-    IpsetResult ensureSet(const std::string& setName,
-                          const std::string& setType,
+    IpsetResult ensureSet(const std::string& setName, const std::string& setType,
                           uint32_t defaultTimeoutSeconds = 0);
 
     // Adds `element` (e.g. an IP, or "ip,port" depending on set type)
     // to `setName`, expiring after `timeoutSeconds` (0 = use the set's
     // default / no timeout). This is the WAF-facing call: "block this
     // attacker for N seconds."
-    IpsetResult add(const std::string& setName,
-                    const std::string& element,
+    IpsetResult add(const std::string& setName, const std::string& element,
                     uint32_t timeoutSeconds);
 
     // Removes `element` from `setName` early (e.g. on manual unblock).
@@ -82,15 +80,12 @@ public:
     // object. Empty if the last call did not error.
     const std::string& lastError() const { return lastError_; }
 
-private:
-    IpsetResult runCmd(enum ipset_cmd cmd,
-                       const std::string& setName,
-                       const std::string& element,
-                       uint32_t timeoutSeconds,
-                       const std::string& setType);
+   private:
+    IpsetResult runCmd(enum ipset_cmd cmd, const std::string& setName, const std::string& element,
+                       uint32_t timeoutSeconds, const std::string& setType);
 
     std::mutex mutex_;
     std::string lastError_;
 };
 
-} // namespace ipsettarpit
+}  // namespace ipsettarpit

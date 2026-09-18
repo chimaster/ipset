@@ -1,0 +1,25 @@
+BasedOnStyle: Google
+Language: Cpp
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Column limit
+ColumnLimit: 100
+
+# Brace wrapping (attaches { to the end of the line)
+BreakBeforeBraces: Attach
+
+# Alignment and spacing settings
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# Include ordering
+SortIncludes: true
+IncludeBlocks: Regroup

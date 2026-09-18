@@ -9,19 +9,23 @@
 // Run with sudo/CAP_NET_ADMIN (needs kernel netlink access to ip_set):
 //   sudo ./waf_tarpit_demo
 
-#include "ipset_wrapper.h"
-
 #include <iostream>
+
+#include "ipset_wrapper.h"
 
 using ipsettarpit::IpsetResult;
 using ipsettarpit::IpsetSet;
 
 static const char* resultName(IpsetResult r) {
     switch (r) {
-        case IpsetResult::Ok: return "Ok";
-        case IpsetResult::AlreadyPresent: return "AlreadyPresent";
-        case IpsetResult::NotPresent: return "NotPresent";
-        case IpsetResult::Error: return "Error";
+        case IpsetResult::Ok:
+            return "Ok";
+        case IpsetResult::AlreadyPresent:
+            return "AlreadyPresent";
+        case IpsetResult::NotPresent:
+            return "NotPresent";
+        case IpsetResult::Error:
+            return "Error";
     }
     return "?";
 }
@@ -41,7 +45,7 @@ int main() {
         return 1;
     }
 
-    const std::string attacker = "203.0.113.7"; // TEST-NET-3, safe example IP
+    const std::string attacker = "203.0.113.7";  // TEST-NET-3, safe example IP
 
     // This is the call a WAF makes inline when it detects abuse, e.g.
     // "5 malformed requests in 10 seconds from this IP" -> tarpit it
@@ -58,7 +62,7 @@ int main() {
     r = ipset.test(setName, attacker);
     std::cout << "test(" << attacker << ") -> " << resultName(r) << "\n";
 
-    r = ipset.test(setName, "198.51.100.9"); // a different, unblocked IP
+    r = ipset.test(setName, "198.51.100.9");  // a different, unblocked IP
     std::cout << "test(198.51.100.9) -> " << resultName(r) << "\n";
 
     // Manual early unblock, e.g. an admin override.

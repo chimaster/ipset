@@ -22,8 +22,7 @@ namespace {
 // session and a user pointer. We route it straight to vprintf; swap this
 // out for your own logger if you don't want ipset's own list/save output
 // going to stdout.
-int sessionPrintf(struct ipset_session* /*session*/, void* /*user*/,
-                   const char* fmt, ...) {
+int sessionPrintf(struct ipset_session* /*session*/, void* /*user*/, const char* fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     int n = std::vprintf(fmt, ap);
@@ -31,7 +30,7 @@ int sessionPrintf(struct ipset_session* /*session*/, void* /*user*/,
     return n;
 }
 
-} // namespace
+}  // namespace
 
 IpsetSet::IpsetSet() {
     // Cheap and idempotent; safe to call once per process. Must happen
@@ -42,8 +41,7 @@ IpsetSet::IpsetSet() {
 
 IpsetSet::~IpsetSet() = default;
 
-IpsetResult IpsetSet::ensureSet(const std::string& setName,
-                                const std::string& setType,
+IpsetResult IpsetSet::ensureSet(const std::string& setName, const std::string& setType,
                                 uint32_t defaultTimeoutSeconds) {
     std::lock_guard<std::mutex> lock(mutex_);
 
@@ -71,15 +69,14 @@ IpsetResult IpsetSet::ensureSet(const std::string& setName,
             lastError_ = "ensureSet: invalid/unsupported set type '" + setType + "'";
             result = IpsetResult::Error;
         } else if (!ipset_type_get(session, IPSET_CMD_CREATE)) {
-            lastError_ = std::string("ensureSet: ") +
-                         (ipset_session_report_msg(session)
-                              ? ipset_session_report_msg(session)
-                              : "unknown type resolution failure");
+            lastError_ = std::string("ensureSet: ") + (ipset_session_report_msg(session)
+                                                           ? ipset_session_report_msg(session)
+                                                           : "unknown type resolution failure");
             result = IpsetResult::Error;
         } else {
             if (defaultTimeoutSeconds > 0) {
                 ipset_data_set(ipset_session_data(session), IPSET_OPT_TIMEOUT,
-                                &defaultTimeoutSeconds);
+                               &defaultTimeoutSeconds);
             }
             ret = ipset_cmd(session, IPSET_CMD_CREATE, 0);
             if (ret != 0) {
@@ -185,4 +182,4 @@ IpsetResult IpsetSet::runCmd(enum ipset_cmd cmd, const std::string& setName,
     return result;
 }
 
-} // namespace ipsettarpit
+}  // namespace ipsettarpit
